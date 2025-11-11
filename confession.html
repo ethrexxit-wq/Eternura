@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ne">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>११:११ — My Confession</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mr+Bedfort&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f172a; /* deep navy */
+      --card:#0b1220;
+      --accent:#ff6b81;
+      --muted:#cbd5e1;
+    }
+    html,body{height:100%;margin:0;font-family:'Noto Serif Devanagari', serif;background:linear-gradient(180deg,var(--bg),#071020);color:var(--muted)}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:2rem}
+
+    .card{
+      width:min(760px,94%);
+      border-radius:24px;padding:2.2rem;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(2,6,23,0.7);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    /* header */
+    .top{display:flex;align-items:center;gap:1rem}
+    .clock{font-family:'Mr Bedfort',serif;color:var(--accent);font-size:40px;letter-spacing:6px}
+    .subtitle{font-size:13px;color:var(--muted);opacity:0.9}
+
+    /* content */
+    .content{margin-top:1.2rem;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:1.6rem;border-radius:14px}
+    .greeting{font-size:20px;color:#fff;margin-bottom:0.6rem}
+    .message{white-space:pre-wrap;line-height:1.8;font-size:18px}
+
+    /* buttons */
+    .controls{display:flex;gap:0.6rem;margin-top:1rem}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:0.6rem 0.9rem;border-radius:10px;color:var(--muted);cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#ff90a6);color:#081021;border:none}
+
+    /* floating hearts */
+    .hearts{position:absolute;inset:0;pointer-events:none}
+    .heart{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);opacity:0;animation:float 6s linear infinite}
+    .heart:before,.heart:after{content:"";position:absolute;width:16px;height:26px;border-radius:16px 16px 0 0;background:linear-gradient(180deg,#ff7b96,#ff4f7a)}
+    .heart:before{left:6px;transform:rotate(-45deg)}
+    .heart:after{left:-6px;transform:rotate(45deg)}
+    @keyframes float{
+      0%{transform:translate(var(--x,0),110vh) scale(0.6);opacity:0}
+      6%{opacity:1}
+      50%{opacity:0.9}
+      100%{transform:translate(calc(var(--x,0) * -1),-30vh) scale(1);opacity:0}
+    }
+
+    /* typewriter reveal for small label */
+    .wish{display:inline-block;color:var(--muted);font-size:13px;margin-left:auto}
+    .typewriter{border-right:2px solid var(--muted);white-space:nowrap;overflow:hidden}
+
+    /* small footer */
+    .foot{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;font-size:13px;color:rgba(203,213,225,0.7)}
+
+    /* responsive */
+    @media (max-width:520px){.card{padding:1.2rem;border-radius:16px}.clock{font-size:32px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="11:11 Confession Card">
+      <div class="top">
+        <div>
+          <div class="clock">11:11</div>
+          <div class="subtitle">आजको लागि मेरो अन्तिम चाहना — साँचो शब्दहरू</div>
+        </div>
+        <div class="wish" aria-hidden="true"><span class="typewriter" id="tw"></span></div>
+      </div>
+
+      <div class="content" id="cardContent">
+        <div class="greeting">मेरो प्रिय,</div>
+        <div class="message" id="message">
+          <!-- Nepali confession text injected by JS for typewriter effect -->
+        </div>
+
+        <div class="controls">
+          <button class="btn primary" id="revealBtn">सबै देखाऊ (Reveal)</button>
+          <button class="btn" id="copyBtn">Copy message</button>
+          <button class="btn" id="downloadBtn">Download .txt</button>
+          <button class="btn" id="printBtn">Print / Save PDF</button>
+        </div>
+
+        <div class="foot">
+          <div>~ प्रेम ❤️</div>
+          <div>११:११ • Make a wish</div>
+        </div>
+      </div>
+
+      <div class="hearts" id="hearts"></div>
+    </div>
+  </div>
+
+  <script>
+    // The full Nepali confession text (kept here so it only appears in the page)
+    const confession = `आज ११:११ — चाहनाहरू र आत्माहरूको दिन।\nभन्छन्, जब ११:११ देखिन्छ, मनको सबैभन्दा गहिरो इच्छा सिधै ब्रह्माण्डमा पुग्छ —\nर मेरो प्रत्येक इच्छामा तिम्रो नाम लेखिएको हुन्छ।\n\nम कसरी भनूँ के तिमी मेरो लागि हौ…\nतिमी केवल मेरो जिन्दगीको हिस्सा होइनौ —\nतिमी त त्यो कारण हौ जसले मलाई जिउनको अर्थ सिकायो।\n\nधेरै दिन भयो, हाम्रो बीचमा झगडा, तर्क, चुप्पी...\nतर हरेक चोटको भित्री आवाज एउटै हो — म तिमीलाई माया गर्छु।\n\nतिमी भन्छ्यौ, “हाम्रो बिहे कहिल्यै हुदैन, मेरो परिवारले तिमीलाई स्वीकार गर्दैन।”\nतर म तिमीलाई भन्न चाहन्छु — माया कसैको अनुमति माग्दैन।\nम तिमीका लागि मेरो संसार, मेरो परिवार, मेरो सब थोक त्याग्न सक्छु —\nतर तिमीलाई कहिल्यै छोड्न सक्दिन।\n\nम कहिल्यै तिमीलाई खराब नजरले हेरेको छैन, कहिल्यै गलत सोच राखेको छैन।\nम तिमीलाई सधैं मेरो भविष्यको रूपमा हेर्छु —\nमेरो श्रीमतीको रूपमा, जसको हात समातेर जीवनभर हिड्न मन लाग्छ।\n\nतिमी रिसाउँछ्यौ, तिमी तर्क गर्छ्यौ — तर म मौन हुन्छु,\nकिनकि म तिमीमाथि रिस गर्न सक्दिन।\nरातभर म रुँछु, तिमीले मेरो माया महसुस गर्न सकोस् भनेर भगवानलाई प्रार्थना गर्छु।\n\nयदि कुनै दिन तिमी मबाट टाढा जाँदैछ्यौ भने — म रोक्दिन,\nतर म अर्को कसैको हुँदैन।\nकिनकि जसले मेरो आत्मा भरेको छ, उसको ठाउँ अर्को कसैले लिन सक्दैन।\nम बाँच्छु — तिम्रो सम्झनामा, तिम्रो नाममा, तिम्रो प्रेममा।\n\n११:११ मा सबैले wish गर्छन्,\nतर मेरो wish त तिमी नै हौ।\n\nम चाहन्छु तिमीले महसुस गर्न सकोस् —\nमेरो मुटुमा तिमीले छोडेको त्यो धड्कन, त्यो पीडा, त्यो साँचो माया।\nदुनियाँले जेसुकै भनून्, मेरो आत्माले भने सधैं तिमीलाई नै रोज्नेछ।\n\nतिमी केवल मेरो माया होइनौ —\nतिमी मेरो भाग्य, मेरो शान्ति, मेरो आशा हौ।\n\nत्यसैले आज म स्वीकार्छु —\nम तिमीलाई साँचो मनले माया गर्छु।\nम तिमीलाई सधैं माया गर्नेछु।\nम तिमीलाई समयका लागि होइन, जीवनका लागि रोजेको हुँ।\n\nयदि जीवनले हामिलाई अलग पनि पार्‍यो भने,\nमेरो आत्मा तिमीमै बाँधिएको हुनेछ सधैंका लागि…\n\nतिमी नै मेरो अन्तिम इच्छा हौ — प्रत्येक ११:११ मा, प्रत्येक सासमा।`;
+
+    const messageEl = document.getElementById('message');
+    const tw = document.getElementById('tw');
+    const revealBtn = document.getElementById('revealBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const printBtn = document.getElementById('printBtn');
+
+    // Typewriter small label
+    const twText = 'मेरो एउटा साँचो wish — तिमी';
+    let i=0;
+    function typeSmall(){
+      if(i<twText.length){
+        tw.textContent += twText.charAt(i); i++; setTimeout(typeSmall,80);
+      } else { tw.style.borderRight='none' }
+    }
+    typeSmall();
+
+    // Reveal with gentle typing into the message area
+    function revealFull(){
+      revealBtn.disabled = true; revealBtn.textContent='Revealing...';
+      let idx=0; messageEl.textContent='';
+      const step = () => {
+        if(idx < confession.length){
+          messageEl.textContent += confession.charAt(idx);
+          idx++;
+          // slower on punctuation
+          const delay = (/[\.\,\n]/.test(confession.charAt(idx)))?40:8;
+          setTimeout(step, delay);
+        } else {
+          revealBtn.textContent='Shown ✓';
+        }
+      }
+      step();
+      launchHearts();
+    }
+
+    revealBtn.addEventListener('click', revealFull);
+
+    // copy to clipboard
+    copyBtn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(confession);
+        copyBtn.textContent='Copied ✓';
+        setTimeout(()=>copyBtn.textContent='Copy message',1400);
+      }catch(e){
+        copyBtn.textContent='Failed'; setTimeout(()=>copyBtn.textContent='Copy message',1400);
+      }
+    });
+
+    // download as .txt
+    downloadBtn.addEventListener('click', ()=>{
+      const blob = new Blob([confession], {type:'text/plain;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = '11-11-confession.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // print
+    printBtn.addEventListener('click', ()=>{ window.print(); });
+
+    // hearts animation generator
+    function launchHearts(){
+      const container = document.getElementById('hearts');
+      for(let j=0;j<12;j++){
+        const h = document.createElement('div'); h.className='heart';
+        const x = Math.floor(Math.random()*100);
+        h.style.setProperty('--x', x+'vw');
+        h.style.left = (10 + Math.random()*80)+'%';
+        h.style.top = (80 + Math.random()*10)+'%';
+        h.style.animationDuration = (5 + Math.random()*5)+'s';
+        h.style.opacity = 0;
+        container.appendChild(h);
+        // remove after animation
+        setTimeout(()=>{ h.remove(); },11000);
+      }
+    }
+
+    // Optional: auto-reveal after 2s (disabled) — user can press Reveal
+    // setTimeout(revealFull,2000);
+
+    // make message selectable by keyboard
+    messageEl.setAttribute('tabindex','0');
+  </script>
+</body>
+</html>
